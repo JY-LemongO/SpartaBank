@@ -7,9 +7,7 @@ using UnityEngine.UI;
 public class UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
-    protected bool _init = false;
-
-    protected readonly string PATH = "Prefabs/UI";
+    protected bool _init = false;    
 
     public virtual bool Init()
     {

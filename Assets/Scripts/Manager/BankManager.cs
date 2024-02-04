@@ -19,7 +19,10 @@ public class BankManager
     public void Deposit(int value)
     {
         if (Cash < value || value < 0)
+        {
+            Managers.UI.ShowUI<UI_NotEnoughCashOrBalancePopup>(Util.PATH);
             return;
+        }            
 
         Balance += value;
         Cash    -= value;
@@ -30,7 +33,10 @@ public class BankManager
     public void Withdraw(int value)
     {
         if (Balance < value || value < 0)
+        {
+            Managers.UI.ShowUI<UI_NotEnoughCashOrBalancePopup>(Util.PATH);
             return;
+        }            
 
         Balance -= value;
         Cash    += value;

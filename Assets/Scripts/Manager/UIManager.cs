@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class UIManager
 {
@@ -16,16 +16,7 @@ public class UIManager
         }
     }
 
-    public void ShowMenuUI<T>(string path = null) where T : UI_Base => Util.Instantiate<T>(path, Root.transform);
+    public void ShowUI<T>(string path = null) where T : UI_Base => Util.Instantiate<T>(path, Root.transform);    
 
-
-    public void ShowPopupUI()
-    {
-
-    }
-
-    public void ClosePopupUI()
-    {
-
-    }
+    public void CloseUI(GameObject go) => Object.Destroy(go);
 }

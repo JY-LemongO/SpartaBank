@@ -4,7 +4,9 @@ using System.Xml.Linq;
 using UnityEngine;
 
 public static class Util // 이번 과제는 Util 클래스 까진 필요없지만 적응 해야하니까 범용성 Util static 클래스 생성
-{    
+{
+    public static string PATH = "Prefabs/UI";
+
     public static T FindChild<T>(GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
     {
         if(go == null)
