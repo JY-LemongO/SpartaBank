@@ -12,7 +12,7 @@ public class UI_Base : MonoBehaviour
     public virtual bool Init()
     {
         if (_init)
-            return false;
+            return false;        
 
         _init = true;
         return true;
@@ -64,10 +64,5 @@ public class UI_Base : MonoBehaviour
     protected Text GetText(int index) => Get<Text>(index);
     protected Button GetButton(int index) => Get<Button>(index);
     protected InputField GetInputField(int index) => Get<InputField>(index);
-    #endregion
-
-    protected void BindEvent()
-    {
-
-    }
+    #endregion    
 }

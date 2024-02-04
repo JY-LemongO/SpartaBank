@@ -44,7 +44,7 @@ public class UI_Withdraw : UI_Base
 
     private void BackToMain()
     {
-        Managers.UI.ShowUI<UI_MainATM>(Util.PATH);
+        Managers.UI.ShowMenuUI<UI_MainATM>();
         Managers.UI.CloseUI(gameObject);
     }
 

@@ -5,42 +5,46 @@ using UnityEngine;
 
 public class BankManager
 {
-    public int Cash     { get; private set; }
-    public int Balance  { get; private set; }
+    public Account CurrentAccount { get; private set; }    
 
     public Action<int, int> OnTransaction;
 
-    public void Init(int initCash, int initBalance)
-    {
-        Cash    = initCash;
-        Balance = initBalance;
+    public void Init(Account account)
+    {        
+        CurrentAccount = account;        
     }
 
     public void Deposit(int value)
     {
-        if (Cash < value || value < 0)
+        if (CurrentAccount.cash < value || value < 0)
         {
-            Managers.UI.ShowUI<UI_NotEnoughCashOrBalancePopup>(Util.PATH);
+            Managers.UI.ShowPopupUI<UI_AlertPopup>("잔액이 모자랍니다");
             return;
-        }            
+        }
 
-        Balance += value;
-        Cash    -= value;
+        CurrentAccount.balance += value;
+        CurrentAccount.cash -= value;
 
-        OnTransaction?.Invoke(Cash, Balance);
+        OnTransaction?.Invoke(CurrentAccount.cash, CurrentAccount.balance);
     }
 
     public void Withdraw(int value)
     {
-        if (Balance < value || value < 0)
+        if (CurrentAccount.balance < value || value < 0)
         {
-            Managers.UI.ShowUI<UI_NotEnoughCashOrBalancePopup>(Util.PATH);
+            Managers.UI.ShowPopupUI<UI_AlertPopup>("잔액이 모자랍니다");
             return;
-        }            
+        }
 
-        Balance -= value;
-        Cash    += value;
+        CurrentAccount.balance -= value;
+        CurrentAccount.cash += value;
 
-        OnTransaction?.Invoke(Cash, Balance);
+        OnTransaction?.Invoke(CurrentAccount.cash, CurrentAccount.balance);
+    }
+
+    public void Logout()
+    {
+        if (CurrentAccount != null)
+            CurrentAccount = null;
     }
 }

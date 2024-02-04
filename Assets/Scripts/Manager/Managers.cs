@@ -8,14 +8,13 @@ public class Managers : MonoBehaviour
     static Managers s_instace; // 유일한 매니저
     static Managers Instance { get { Init(); return s_instace; } } // 유일한 매니저를 반환
 
-    UIManager   _ui = new UIManager();
-    BankManager _bm = new BankManager();
+    UIManager       _ui = new UIManager();
+    BankManager     _bm = new BankManager();
+    AccountManager  _am = new AccountManager();
 
-    public static UIManager     UI => Instance?._ui;
-    public static BankManager   BM => Instance?._bm;
-
-    [Range(10000, 500000)][SerializeField] int _initCash;
-    [Range(10000, 500000)][SerializeField] int _initBalance;
+    public static UIManager         UI => Instance?._ui;
+    public static BankManager       BM => Instance?._bm;
+    public static AccountManager    AM => Instance?._am;    
 
     private void Awake()
     {
@@ -35,8 +34,8 @@ public class Managers : MonoBehaviour
 
             s_instace = go.GetComponent<Managers>();
 
-            BM.Init(Instance._initCash, Instance._initBalance);
-            Util.Instantiate<UI_Main>();            
+            AM.LoadAllAccounts();
+            UI.ShowSceneUI<UI_Login>();
         }
     }
 }

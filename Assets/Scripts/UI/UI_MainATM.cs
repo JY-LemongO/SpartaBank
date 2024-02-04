@@ -31,13 +31,13 @@ public class UI_MainATM : UI_Base
 
     private void OpenDepositWindow()
     {        
-        Managers.UI.ShowUI<UI_Deposit>(Util.PATH);
+        Managers.UI.ShowMenuUI<UI_Deposit>();
         Managers.UI.CloseUI(gameObject);
     }
 
     private void OpenWithdrawWindow()
     {        
-        Managers.UI.ShowUI<UI_Withdraw>(Util.PATH);
+        Managers.UI.ShowMenuUI<UI_Withdraw>();
         Managers.UI.CloseUI(gameObject);
     }
 }
