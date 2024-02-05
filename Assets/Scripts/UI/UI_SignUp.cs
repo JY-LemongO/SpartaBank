@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,12 +35,12 @@ public class UI_SignUp : UI_Base
         if (base.Init() == false)
             return false;
 
-        Bind<Button>(typeof(Buttons));
-        Bind<InputField>(typeof(InputFields));
-        Bind<Text>(typeof(Texts));
+        BindButton(typeof(Buttons));
+        BindInputField(typeof(InputFields));
+        BindText(typeof(Texts));
 
-        Get<Button>((int)Buttons.Cancel_Btn).onClick.AddListener(CloseUI);
-        Get<Button>((int)Buttons.SignUp_Btn).onClick.AddListener(SignUp);
+        GetButton((int)Buttons.Cancel_Btn).onClick.AddListener(CloseUI);
+        GetButton((int)Buttons.SignUp_Btn).onClick.AddListener(SignUp);        
 
         return true;
     }
@@ -61,7 +62,7 @@ public class UI_SignUp : UI_Base
 
             if (DuplicateID(inputTextID))
                 alert.text = "중복된 ID 입니다.";
-            else if (inputTextID.Length < MinLengthID || !Regex.IsMatch(inputTextID, "^[a-zA-Z0-9]+$"))
+            else if (inputTextID.Length < MinLengthID || !inputTextID.Any(char.IsDigit))
                 alert.text = "ID는 영문, 숫자 혼합 3 ~ 10자 입니다.";            
             else if (inputTextName.Length < MinLengthName)
                 alert.text = "이름을 확인해주세요.";
@@ -79,7 +80,7 @@ public class UI_SignUp : UI_Base
 
     private bool CheckInfo(string id, string name, string pw, string pwConfirm)
     {
-        if (id.Length < MinLengthID || !Regex.IsMatch(id, "^[a-zA-Z0-9]+$") || name.Length < MinLengthName || pw.Length < MinLengthPW || pw != pwConfirm)
+        if (id.Length < MinLengthID || !id.Any(char.IsDigit) || name.Length < MinLengthName || pw.Length < MinLengthPW || pw != pwConfirm)
             return false;
 
         return true;

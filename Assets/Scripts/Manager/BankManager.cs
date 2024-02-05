@@ -26,6 +26,7 @@ public class BankManager
         CurrentAccount.cash -= value;
 
         OnTransaction?.Invoke(CurrentAccount.cash, CurrentAccount.balance);
+        Managers.AM.SaveCurrentAccount();
     }
 
     public void Withdraw(int value)
@@ -40,6 +41,7 @@ public class BankManager
         CurrentAccount.cash += value;
 
         OnTransaction?.Invoke(CurrentAccount.cash, CurrentAccount.balance);
+        Managers.AM.SaveCurrentAccount();
     }
 
     public void Logout()

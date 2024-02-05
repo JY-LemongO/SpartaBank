@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class UI_MainATM : UI_Base
         BindButton(typeof(Buttons)); // 프리팹에 있는 모든 버튼 컴포넌트를 바인드
 
         GetButton((int)Buttons.Deposit_Btn).onClick.AddListener(OpenDepositWindow);
-        GetButton((int)Buttons.Withdraw_Btn).onClick.AddListener(OpenWithdrawWindow);
+        GetButton((int)Buttons.Withdraw_Btn).onClick.AddListener(OpenWithdrawWindow);        
 
         return true;
     }

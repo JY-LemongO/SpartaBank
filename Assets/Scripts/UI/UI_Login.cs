@@ -27,6 +27,8 @@ public class UI_Login : UI_Base
 
         GetButton((int)Buttons.Login_Btn).onClick.AddListener(Login);
         GetButton((int)Buttons.SignUp_Btn).onClick.AddListener(SignUp);
+        GetInputField((int)InputFields.ID_Input).ForceLabelUpdate();
+        GetInputField((int)InputFields.PW_Input).ForceLabelUpdate();
 
         return true;
     }

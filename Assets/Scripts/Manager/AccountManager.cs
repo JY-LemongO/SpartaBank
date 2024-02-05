@@ -1,7 +1,10 @@
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
+[System.Serializable]
 public class Account
 {
     public string id;
@@ -11,29 +14,38 @@ public class Account
     public int balance;
 }
 
+[System.Serializable]
+public class AccountDB
+{
+    public List<Account> _saveAccounts = new List<Account>();
+}
+
 public class AccountManager
 {
-    private Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
-    private List<Account> _saveAccount = new List<Account>();
+    private Dictionary<string, Account> _accounts = new Dictionary<string, Account>();        
+    private AccountDB _db = new AccountDB();
 
     private readonly int InitCash = 100000;
     private readonly int InitBalance = 50000;
+
+    private const string SAVE_NAME = "Accounts";
 
     public Account Login(string id, string pw)
     {
         if (!_accounts.ContainsKey(id))
         {
-            Managers.UI.ShowPopupUI<UI_AlertPopup>("Á¸ÀçÇÏÁö ¾Ê´Â ID ÀÔ´Ï´Ù.");
+            Managers.UI.ShowPopupUI<UI_AlertPopup>("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ID ì…ë‹ˆë‹¤.");
             return null;
         }
 
-        Account account = _accounts[id];
+        Account account = _accounts[id];        
+
         if (account.pw != pw)
         {
-            Managers.UI.ShowPopupUI<UI_AlertPopup>("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+            Managers.UI.ShowPopupUI<UI_AlertPopup>("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
-        
+
         return account;
     }
 
@@ -43,28 +55,40 @@ public class AccountManager
         _accounts.Add(id, account);
         SaveAccounts(account);
 
-        Managers.UI.ShowPopupUI<UI_AlertPopup>("°èÁ¤ÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+        Managers.UI.ShowPopupUI<UI_AlertPopup>("ê³„ì •ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
+    }    
+
+    public void SaveAccounts(Account account)
+    {
+        _db._saveAccounts.Add(account);
+        string data = JsonUtility.ToJson(_db);        
+
+        PlayerPrefs.SetString(SAVE_NAME, data);
+        PlayerPrefs.Save();
     }
 
-    private void SaveAccounts(Account account)
+    public void SaveCurrentAccount()
     {
-        _saveAccount.Add(account);
+        string data = JsonUtility.ToJson(_db);
 
-        string json = JsonUtility.ToJson(_saveAccount);
-        PlayerPrefs.SetString("Accounts", json);
+        PlayerPrefs.SetString(SAVE_NAME, data);
         PlayerPrefs.Save();
     }
 
     public void LoadAllAccounts()
     {
-        string json = PlayerPrefs.GetString("Accounts");
-        if (string.IsNullOrEmpty(json))
-            return;
+        if (PlayerPrefs.HasKey(SAVE_NAME))
+        {
+            string loadedData = PlayerPrefs.GetString(SAVE_NAME);
+            _db = JsonUtility.FromJson<AccountDB>(loadedData);   
 
-        _saveAccount = JsonUtility.FromJson<List<Account>>(json);
-
-        foreach (Account account in _saveAccount)
-            _accounts.Add(account.id, account);
+            foreach(var data in _db._saveAccounts)
+                _accounts.Add(data.id, data);
+        }
+        else
+        {
+            Debug.Log("ì €ì¥ëœ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
+        }
     }
 
     public bool CheckDuplicateID(string id)

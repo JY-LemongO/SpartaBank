@@ -602,13 +602,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5278449121758541848}
   m_TextComponent: {fileID: 5957869914223205159}
   m_Placeholder: {fileID: 2528419575526637905}
-  m_ContentType: 0
+  m_ContentType: 4
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 1
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 3
   m_CharacterLimit: 0
   m_OnSubmit:
     m_PersistentCalls:
