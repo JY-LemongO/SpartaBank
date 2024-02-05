@@ -58,6 +58,16 @@ public class AccountManager
         Managers.UI.ShowPopupUI<UI_AlertPopup>("계정이 생성되었습니다.");
     }    
 
+    public Account SearchAccount(string id)
+    {
+        Account account = null;
+        if(_accounts.TryGetValue(id, out account))
+        {
+            return account;
+        }
+        return null;
+    }
+
     public void SaveAccounts(Account account)
     {
         _db._saveAccounts.Add(account);
@@ -67,7 +77,7 @@ public class AccountManager
         PlayerPrefs.Save();
     }
 
-    public void SaveCurrentAccount()
+    public void SaveAccounts()
     {
         string data = JsonUtility.ToJson(_db);
 

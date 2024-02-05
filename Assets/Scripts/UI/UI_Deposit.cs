@@ -53,6 +53,6 @@ public class UI_Deposit : UI_Base
         if (int.TryParse(inputField.text, out int value))
             Managers.BM.Deposit(value);
         else
-            Debug.Log("입력 값에 숫자가 포함되어 있지 않습니다.");
+            Managers.UI.ShowPopupUI<UI_AlertPopup>("입금할 금액을 입력하세요.");
     }
 }
