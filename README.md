@@ -258,4 +258,10 @@ private static void Init() // 유일한 매니저 s_instance가 없으면 "@Mana
   * 입, 출금
     * 입, 출금 시 PlayerPrefs 저장
   * Logout 시 Login 창으로 돌아감
-  * 송금 - 구현예정
+  * 송금
+    * 송금 시 PlayerPrefs 저장
+    * ID 검색하여 해당 아이디 존재하면 송금
+
+* 공통
+  * 알림 창
+    * 각 이벤트 시 팝업으로 알림창(UI_AlertPopup prefab) 표시
