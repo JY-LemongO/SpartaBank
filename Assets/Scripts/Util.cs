@@ -35,14 +35,14 @@ public static class Util // 이번 과제는 Util 클래스 까진 필요없지만 적응 해야하�
         return null;
     }
 
-    public static GameObject Instantiate<T>(string path = null, Transform parent = null) where T : UI_Base
+    public static GameObject Instantiate<T>(string path = null, Transform parent = null)
     {
         if (string.IsNullOrEmpty(path))
             path = "Prefabs";        
 
         string fileName = typeof(T).Name;
 
-        GameObject prefab = Resources.Load<T>($"{path}/{fileName}").gameObject;
+        GameObject prefab = Resources.Load<GameObject>($"{path}/{fileName}");
         
         GameObject go = Object.Instantiate(prefab, parent);
         go.name = prefab.name;
